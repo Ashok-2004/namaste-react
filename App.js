@@ -11,7 +11,7 @@ const parent1=React.createElement("div",{id:"parent"},React.createElement("div",
 ,[React.createElement("h1",{},"This is the h1 Heading"),React.createElement("h2",{},"This is the h2 Heading")]));
 const root1=ReactDOM.createRoot(document.getElementById("root"));
 root.render(parent1);
-//Nested div
+//Nested div 
 const parent2=React.createElement("div",{id:"parent"},[React.createElement("div",{id:"child1"}
     ,[React.createElement("h1",{},"This is the h1 Heading"),React.createElement("h2",{},"This is the h2 Heading")]),
     React.createElement("div",{id:"child2"}
