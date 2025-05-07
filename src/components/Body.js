@@ -1,17 +1,18 @@
-import RestrauntCard from "./RestaurantCard"
+import RestrauntCard, { PromotedRestrauntCard } from "./RestaurantCard"
 import Shimmer from "./shimmer"
-import {useState, useEffect} from "react"
+import {useState, useEffect, useContext} from "react"
 import { Link } from "react-router-dom"
 import useOnlineStatus from "../utils/useOnlineStatus"
+import UserContext from "../utils/UserContext"
 
 const Body = () => {
     const [ListofRestaurant, setListofRestaurant] = useState([]);
     const [searchText, setSearchText] = useState("");
     const [filteredRestaurant, setFilteredRestaurant] = useState([]);
-    
     useEffect(() => {
         fetchData();
     }, []);
+    const {user,setUserName}=useContext(UserContext)
     
     const fetchData = async () => {
         const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.62448069999999&page_type=DESKTOP_WEB_LISTING");
@@ -20,7 +21,7 @@ const Body = () => {
         setListofRestaurant(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
         setFilteredRestaurant(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
       }
-    
+    const RestaurantCardPromoted= PromotedRestrauntCard(RestrauntCard)
     const handleSearch = () => {
         const filtered = ListofRestaurant.filter((res) => 
             res.info.name.toLowerCase().includes(searchText.toLowerCase()));
@@ -70,6 +71,8 @@ const Body = () => {
                         >
                             Search
                         </button>
+                        <label>info :</label>
+                        <input type="text" className="border border-black" value={user} onChange={(e)=>setUserName(e.target.value)} />
                     </div>
                     <button 
                         className="w-full sm:w-auto px-4 py-2 bg-pink-100 text-pink-700 rounded-lg hover:bg-pink-200 transition-colors focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-opacity-50 flex items-center justify-center"
@@ -90,7 +93,7 @@ const Body = () => {
                         to={"/restaurant/" + restaurant.info.id}
                         className="transform hover:scale-105 transition-transform duration-200"
                     >
-                        <RestrauntCard resData={restaurant} />
+                        {restaurant.info.isOpen ? <RestrauntCard resData={restaurant}/> : <RestaurantCardPromoted resData={restaurant}/>}
                     </Link>
                 ))}
             </div>

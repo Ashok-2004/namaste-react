@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import { CDN_LINK } from "../utils/constant"
 
 const RestaurantCard = (props) => {
@@ -10,6 +11,7 @@ const RestaurantCard = (props) => {
         : avgRating >= 3 
             ? "bg-orange-400" 
             : "bg-red-500";
+            
     
     return (
         <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
@@ -47,3 +49,14 @@ const RestaurantCard = (props) => {
 }
 
 export default RestaurantCard
+
+export const PromotedRestrauntCard=() =>{
+    return (props) =>{
+        return(
+            <div>
+            <label className="absolute bg-black text-white p-2 rounded-lg z-10">Promoted</label>
+            <RestaurantCard {...props}/>
+            </div>
+        )
+    }
+}

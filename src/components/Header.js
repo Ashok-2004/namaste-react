@@ -1,12 +1,13 @@
 import { LOGO_LINK } from "../utils/constant";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, useInRouterContext } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
 
 const Header = () => {
     const [btnName, setBtnName] = useState("Login");
     const onlineStatus = useOnlineStatus();
-    
+    const {user}=useContext(UserContext)
     return (
         <header className="sticky top-0 z-50 bg-white shadow-md">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -62,6 +63,7 @@ const Header = () => {
                         >
                             {btnName}
                         </button>
+                        {user}
                     </div>
                     
                     {/* Mobile menu button - hidden on desktop */}

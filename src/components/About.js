@@ -2,6 +2,7 @@ import { Component } from "react";
 import { Link } from "react-router-dom";
 import User from "./User";
 import Userf from "./Userf";
+import UserContext from "../utils/UserContext";
 
 class About extends Component {
     constructor(props) {
@@ -67,6 +68,11 @@ class About extends Component {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 <User name="Akshay Saini"location="Himachal Pradesh" />
                                 <Userf name="Ashok"location="Himachal Pradesh"/>
+                    </div>
+                    <div>
+                        <UserContext.Consumer>
+                            {({user})=><h1>{user}</h1>}
+                        </UserContext.Consumer>
                     </div>
                 </div>
 

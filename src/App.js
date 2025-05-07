@@ -1,24 +1,33 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import Header from './components/Header';
 import Body from './components/Body';
-// import Footer from './components/Footer';
 import About from './components/About';
 import Contact from './components/Contact';
 import Error from './components/Error';
 import RestaurantMenu from './components/RestaurantMenu';
 import Cart from './components/Cart';
 import { CartProvider } from './components/CartContext';
+import UserContext from './utils/UserContext';
 
 const AppLayout = () => {
+  const [userName,setUserName]=useState("Default User")
+  useEffect(()=>{
+    const User={
+      user:"Akshay Saini"
+    }
+    setUserName(User.user)
+  },[])
   return (
+    <UserContext.Provider value={{user:userName,setUserName}}>
     <div className="app">
-      <Header />
+      <Header />  
       <div className="main-content">
         <Outlet />
       </div>
     </div>
+    </UserContext.Provider>
   );
 };
 
